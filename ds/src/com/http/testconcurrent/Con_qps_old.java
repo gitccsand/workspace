@@ -2,8 +2,6 @@ package com.http.testconcurrent;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
 import javax.servlet.ServletException;
@@ -11,30 +9,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet("/Con_qps.do")
-public class Con_qps extends HttpServlet {
+@WebServlet("/Con_qps_old.do")
+public class Con_qps_old extends HttpServlet {
 	
 	//实例变量
 	private Semaphore pool;//令牌池 信号量实现
-//	private Timer pool_timer;//定时器
-	private Refresh_task refresh_task;//刷新任务
-	
-	
+	private Refresh_sleep_timer pool_refresh;//定时器
 
 	@Override
 	public void init() throws ServletException {
-		pool=new Semaphore(3);//初始化令牌池 3个令牌
-		
-		refresh_task = new Refresh_task(pool,3);
+		//初始化令牌池 3个令牌
+		pool=new Semaphore(3);
 		
 		//开始定时刷新令牌池 10秒刷新一次
-		Timer pool_timer = new Timer();		
-		pool_timer.schedule(refresh_task, 0, 20000);
-		
+		pool_refresh = new Refresh_sleep_timer(pool, 10000, 3);
+		pool_refresh.start();
 //		super.init();
 	}
-
-
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -60,13 +51,3 @@ public class Con_qps extends HttpServlet {
 
 
 }
-
-//	Refresh pool_refresh_timer;
-
-//	@Override
-//	public void init() throws ServletException {
-//		this.semaphore = new Semaphore(3);//初始化令牌池，共3个令牌
-//		this.pool_refresh_timer = new Refresh(semaphore,10000);//计时器开始，每10秒刷新令牌池
-//		pool_refresh_timer.start();
-////		super.init();
-//	}
