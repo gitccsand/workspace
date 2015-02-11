@@ -2,8 +2,6 @@ package com.http.testconcurrent;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
 import javax.servlet.ServletException;
