@@ -25,7 +25,30 @@ public class Refresh_task extends TimerTask {
 	}
 	
 	
+//	private long interval;
 
+//	public Timer(Semaphore semaphore,long interval) {
+////		super();
+//		this.semaphore = semaphore;
+//		this.interval = interval;
+//	}
+
+
+
+//	@Override
+//	public void run() {
+//		while (true) {
+//			try {
+//				Thread.sleep(interval);//每个时间间隔刷新一次
+//				System.out.println("======wakeup");
+//				int acquire = semaphore.drainPermits();//获得已分配令牌数
+//				semaphore.release(acquire);//释放已分配的令牌
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+////		super.run();
+//	}
 	
 	
 

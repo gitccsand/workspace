@@ -16,7 +16,13 @@ public class Con_qps extends HttpServlet {
 	
 	//实例变量
 	private Semaphore pool;//令牌池 信号量实现
-	private Refresh_task refresh_task;//刷新任务	
+//<<<<<<< HEAD
+//	private Refresh_task refresh_task;//刷新任务	
+//=======
+//	private Timer pool_timer;//定时器
+	private Refresh_task refresh_task;//刷新任务
+	
+	
 
 	@Override
 	public void init() throws ServletException {
@@ -24,12 +30,19 @@ public class Con_qps extends HttpServlet {
 		
 		refresh_task = new Refresh_task(pool,3);
 		
+//<<<<<<< HEAD
+//		//开始定时刷新令牌池 20秒刷新一次
+//		Timer pool_timer = new Timer();		
+//		pool_timer.schedule(refresh_task, 5, 20000);
+//=======
 		//开始定时刷新令牌池 20秒刷新一次
 		Timer pool_timer = new Timer();		
-		pool_timer.schedule(refresh_task, 5, 20000);
+		pool_timer.schedule(refresh_task, 0, 20000);
 		
 //		super.init();
 	}
+
+
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
